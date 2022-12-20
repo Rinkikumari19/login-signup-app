@@ -28,7 +28,7 @@ export default function UserData() {
                 {logout ? <Login /> :
                     <>
                         <div className='search'>
-                            <input type='text' className='navbar-input mb-3' style={{width:"35%"}} placeholder='search country name' value={search} onChange={(e) => setSearch(e.target.value)} />
+                            <input type='text' className='navbar-input mb-3' style={{width:"35%"}} placeholder='Search country name' value={search} onChange={(e) => setSearch(e.target.value)} />
                             <Button color="secondary" className="navbar-btn heading"
                                 onClick={() => setLogout(true)}
                             >
@@ -39,7 +39,7 @@ export default function UserData() {
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Name</th>
+                                    <th>Country Name</th>
                                     <th>Capital</th>
                                     <th>Currency</th>
                                 </tr>
@@ -47,7 +47,7 @@ export default function UserData() {
                             <tbody>
                                 {
                                     // userData.map((product, index) =>
-                                    userData.filter(item => (item.name.toLowerCase()).includes(search.toLowerCase())).slice(0, 10).map((product, index) => (
+                                    userData.filter(item => (item.name.toLowerCase()).includes(search.toLowerCase())).map((product, index) => (
 
                                         <tr style={{ background: (index % 2 == 0) ? "#8695da" : "#86da86" }}>
                                             <td><b>{index + 1}</b></td>

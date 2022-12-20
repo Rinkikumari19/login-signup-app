@@ -25,15 +25,18 @@ export default function () {
     }
 
     var valSchema1 = yup.object().shape({
-        first_name: yup.string().required('First name is Required!').matches(/^([A-Z])([a-z]+[,.]?[ ]?|[a-z]+['-]?)+$/, "Invalid Name").min(3, "Invalid Name"),
-        last_name: yup.string().required('Last name is Required!').matches(/^([A-Z])([a-z]+[,.]?[ ]?|[a-z]+['-]?)+$/, "Invalid Name").min(3, "Invalid Name"),
+        // first_name: yup.string().required('First name is Required!').matches(/^([A-Z])([a-z]+[,.]?[ ]?|[a-z]+['-]?)+$/, "Invalid Name").min(3, "Invalid Name"),
+        // last_name: yup.string().required('Last name is Required!').matches(/^([A-Z])([a-z]+[,.]?[ ]?|[a-z]+['-]?)+$/, "Invalid Name").min(3, "Invalid Name"),
+        first_name: yup.string().required('First name is Required!'),
+        last_name: yup.string().required('Last name is Required!'),
         email: yup.string().required('Email is Required'),
         password: yup.string().required('Password is Required'),
         repeat_password: yup.string().required('Password is Required').matches(prevPass, "both password shouild nbe same"),
 
     });
     var valSchema2 = yup.object().shape({
-        username: yup.string().required('Username is Required!').matches(/^([A-Z])([a-z]+[,.]?[ ]?|[a-z]+['-]?)+$/, "Invalid Name").min(3, "Invalid Name"),
+        // username: yup.string().required('Username is Required!').matches(/^([A-Z])([a-z]+[,.]?[ ]?|[a-z]+['-]?)+$/, "Invalid Name").min(3, "Invalid Name"),
+        username: yup.string().required('Username is Required!'),
         email: yup.string().required('Email is Required'),
         password: yup.string().required('Password is Required'),
     });
@@ -57,8 +60,15 @@ export default function () {
     const handleSubmit1 = (values) => {
         // console.log(values, 'vals sign up')
         var userInfo = [];
-        userInfo.push(values)
-        localStorage.setItem('userInfo', JSON.stringify(userInfo))
+        if (JSON.parse(localStorage.getItem('userInfo')) != null) {
+            var data = JSON.parse(localStorage.getItem('userInfo'))
+            // console.log("data h ", data)
+            data.push(values)
+            localStorage.setItem('userInfo', JSON.stringify(data))
+        } else {
+            userInfo.push(values)
+            localStorage.setItem('userInfo', JSON.stringify(userInfo))
+        }
         setLogged(true)
     }
 
@@ -68,13 +78,15 @@ export default function () {
             var data = JSON.parse(localStorage.getItem('userInfo'))
             // console.log("data h ", data)
             data.forEach(element => {
-                if (element.email == values.email) {
+                if (element.email == values.email && element.password == values.password) {
                     console.log("loggin successfully")
                     setLogged(true)
                 } else {
-                    alert('Incorrect email id')
+                    alert('Incorrect email id or password')
                 }
             });
+        } else {
+            alert('User is not exists, Please sign up')
         }
     }
 
