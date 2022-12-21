@@ -72,19 +72,24 @@ export default function () {
         setLogged(true)
     }
 
-    const handleSubmit2 = async (values) => {
+    const handleSubmit2 = (values) => {
         // console.log(values, 'vals login')
         if (JSON.parse(localStorage.getItem('userInfo')) != null) {
             var data = JSON.parse(localStorage.getItem('userInfo'))
             // console.log("data h ", data)
+            var objdata={}
             data.forEach(element => {
-                if (element.email == values.email && element.password == values.password) {
+                if (element.email === values.email && element.password === values.password) {
+                    objdata={email:element.email,password:element.password}
                     console.log("loggin successfully")
-                    setLogged(true)
-                } else {
-                    alert('Incorrect email id or password')
                 }
             });
+            if(objdata.email==values.email && objdata.password==values.password){
+                setLogged(true)
+            }
+            else{
+                alert('Incorrect email id or password')
+            }
         } else {
             alert('User is not exists, Please sign up')
         }
@@ -145,9 +150,9 @@ export default function () {
                                     </ModalBody>
                                     <ModalFooter>
                                         <Button className="navbar-btn heading" type="submit">Sign-up</Button>
-                                        <Button type="button" color="secondary" className="navbar-btn heading" onClick={() => setLogin(false)}>
+                                        {/* <Button type="button" color="secondary" className="navbar-btn heading" onClick={() => setLogin(false)}>
                                             Cancel
-                                        </Button>
+                                        </Button> */}
                                     </ModalFooter>
                                 </Form>
                                 )
@@ -180,9 +185,9 @@ export default function () {
                                         </ModalBody>
                                         <ModalFooter>
                                             <Button className="navbar-btn heading" type="submit">Login</Button>
-                                            <Button color="secondary" type="button" className="navbar-btn heading" onClick={() => setLogin(false)}>
+                                            {/* <Button color="secondary" type="button" className="navbar-btn heading" onClick={() => setLogin(false)}>
                                                 Cancel
-                                            </Button>
+                                            </Button> */}
                                         </ModalFooter>
                                     </Form>
                                     )

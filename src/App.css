@@ -64,3 +64,15 @@ td {
   bottom: 16px;
   color: red;
 }
+
+.capital {
+  align-items: center;
+  box-shadow: 2px 2px 2px 2px rgb(0 0 0 / 20%);
+  padding: 20px;
+  border-radius: 10px;
+  width: 19%;
+  left: 460px;
+  position: relative;
+  bottom: 11000px;
+  background: white;
+}
